@@ -1,40 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake</title>
-    <style>
-        body{
-            min-height: 100vh;
-            width:100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin:0;
-            background-color: black;
-        }
-        #game-board{
-            background-color: #ccc;
-            width:100vmin;
-            height: 100vmin;
-            display: grid;
-            grid-template-rows: repeat(21, 1fr);
-            grid-template-columns: repeat(21,1fr);
-        }
-        .snake{
-            background-color: hsl(200,100%,50%);
-            border:.25vmin solid black;
-        }
-        .food{
-            background-color: hsl(50,100%,50%);
-            border:.25vmin solid black;
-        }
-    </style>
-    <script src="game.js" defer type="module"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100vh; margin: 0;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      background: #0b0e14;
+      font-family: system-ui, sans-serif;
+      color: #e6e6e6;
+      touch-action: none;
+    }
+    #hud {
+      display: flex; gap: 2rem;
+      font-size: 1rem; letter-spacing: .05em;
+      margin-bottom: .75rem; text-transform: uppercase;
+    }
+    #hud span { color: hsl(200, 100%, 60%); font-weight: 600; }
+    #wrap { position: relative; }
+    #game-board {
+      background: #151a23;
+      width: 90vmin; height: 90vmin;
+      display: grid;
+      grid-template-rows: repeat(21, 1fr);
+      grid-template-columns: repeat(21, 1fr);
+      border: 2px solid #2a3140;
+    }
+    .snake {
+      background: hsl(200, 100%, 50%);
+      border: .2vmin solid #0b0e14;
+      border-radius: 20%;
+    }
+    .snake-head { background: hsl(200, 100%, 70%); }
+    .food {
+      background: hsl(50, 100%, 50%);
+      border: .2vmin solid #0b0e14;
+      border-radius: 50%;
+    }
+    #overlay {
+      position: absolute; inset: 0;
+      display: none;
+      flex-direction: column;
+      justify-content: center; align-items: center;
+      gap: 1rem;
+      background: rgba(11, 14, 20, .85);
+    }
+    #overlay.visible { display: flex; }
+    #overlay-text { font-size: 1.4rem; }
+    #restart {
+      padding: .6rem 1.4rem;
+      font: inherit;
+      background: hsl(200, 100%, 50%);
+      color: #0b0e14;
+      border: none; border-radius: 4px;
+      cursor: pointer; font-weight: 600;
+    }
+    #hint { margin-top: .75rem; font-size: .8rem; opacity: .5; }
+  </style>
+  <script src="game.js" defer type="module"></script>
 </head>
 <body>
+  <div id="hud">
+    <div>Score <span id="score">0</span></div>
+    <div>Best <span id="high-score">0</span></div>
+  </div>
+  <div id="wrap">
     <div id="game-board"></div>
+    <div id="overlay">
+      <div id="overlay-text"></div>
+      <button id="restart">Play again</button>
+    </div>
+  </div>
+  <div id="hint">Arrows / WASD to move · Space to pause · Swipe on mobile</div>
 </body>
 </html>
